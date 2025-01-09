@@ -1,0 +1,22 @@
+services:
+  db:
+    image: postgres:17.2-alpine
+    restart: unless-stopped
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - '54321:5432'
+    environment:
+      POSTGRES_DB: spincycle
+      POSTGRES_USER: spincycle
+      POSTGRES_PASSWORD: spincycle
+  redis:
+    image: redis:7-alpine3.17
+    restart: unless-stopped
+    ports:
+      - '63791:6379'
+    volumes:
+      - redisdata:/data
+volumes:
+  pgdata:
+  redisdata:

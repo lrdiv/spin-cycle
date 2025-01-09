@@ -1,0 +1,17 @@
+<div class="container">
+  <h1 class="margin-bottom">Settings</h1>
+
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <div class="margin-bottom">
+      <label for="email-control">Email Address: (Required)</label>
+      <input id="email-control" formControlName="email" />
+    </div>
+
+    <div class="margin-bottom">
+      <label for="discogs-user-control">Discogs Username</label>
+      <input id="discogs-user-control" disabled readonly [value]="settings()?.username" />
+    </div>
+
+    <button type="submit">Save Settings</button>
+  </form>
+</div>

@@ -1,0 +1,9 @@
+<main class="main">
+  <div class="content">
+    @if (!authenticated()) {
+      <a [href]="authUrl">Login</a>
+    }
+  </div>
+</main>
+
+<router-outlet />
