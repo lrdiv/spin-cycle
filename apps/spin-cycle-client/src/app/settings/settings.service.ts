@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { UserOut } from '@spin-cycle-mono/shared';
+import { FolderOut, UserOut } from '@spin-cycle-mono/shared';
 import { Observable, map } from 'rxjs';
 
 import { environment } from '../../environments/environment';
@@ -14,12 +14,34 @@ export class SettingsService {
   getUserSettings(): Observable<UserOut> {
     return this.http
       .get<UserOut>(`${environment.apiUrl}/settings`)
-      .pipe(map((partial: UserOut) => new UserOut(partial.id, partial.discogsId, partial.username, partial.email)));
+      .pipe(
+        map(
+          (partial: UserOut) =>
+            new UserOut(
+              partial.id,
+              partial.discogsId,
+              partial.username,
+              partial.email,
+              new FolderOut(partial.folderId, partial.folderName),
+            ),
+        ),
+      );
   }
 
-  updateSettings(id: string, params: { email: string | null }): Observable<UserOut> {
+  updateSettings(params: UserOut): Observable<UserOut> {
+    const folder = new FolderOut(params.folderId, params.folderName);
     return this.http
-      .patch<UserOut>(`${environment.apiUrl}/settings/${id}`, params)
-      .pipe(map((partial: UserOut) => new UserOut(partial.id, partial.discogsId, partial.username, partial.email)));
+      .patch<UserOut>(`${environment.apiUrl}/settings/${params.id}`, params)
+      .pipe(
+        map((partial: UserOut) => new UserOut(partial.id, partial.discogsId, partial.username, partial.email, folder)),
+      );
+  }
+
+  getFolders(): Observable<FolderOut[]> {
+    return this.http.get<FolderOut[]>(`${environment.apiUrl}/discogs/folders`).pipe(
+      map((folders: FolderOut[]) => {
+        return folders.map((f) => new FolderOut(f.id, f.name, f.count));
+      }),
+    );
   }
 }

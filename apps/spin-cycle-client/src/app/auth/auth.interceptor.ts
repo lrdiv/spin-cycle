@@ -7,13 +7,13 @@ import { AuthService } from './auth.service';
 
 export function authInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
   const authService: AuthService = inject(AuthService);
-  const processed: HttpRequest<any> =
+  const processed: HttpRequest<unknown> =
     authService.authenticated() && authService.getToken()
       ? req.clone({ headers: new HttpHeaders({ Authorization: `Bearer ${authService.getToken()}` }) })
       : req;
 
   return next(processed).pipe(
-    catchError((err: HttpResponse<any>) => {
+    catchError((err: HttpResponse<unknown>) => {
       if (err.status === 401) {
         authService.revokeToken();
         inject(Router).navigate(['/login']);

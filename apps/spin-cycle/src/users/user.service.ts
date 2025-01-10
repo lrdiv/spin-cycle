@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from '@spin-cycle-mono/shared';
 import { Repository } from 'typeorm';
@@ -26,7 +26,23 @@ export class UserService {
     return this.userRepository.findOne({ where: { discogsId: id } });
   }
 
+  findByDiscogsUsername(username: string): Promise<UserEntity | null> {
+    return this.userRepository.findOne({ where: { discogsUsername: username } });
+  }
+
   findByIdWithSpins(id: string): Promise<UserEntity | null> {
     return this.userRepository.findOne({ where: { id }, relations: ['spins'] });
+  }
+
+  async getUserFromRequest(userId: string): Promise<UserEntity> {
+    if (!userId) {
+      throw new UnauthorizedException();
+    }
+    const user: UserEntity | null = await this.findById(userId);
+    if (!user) {
+      throw new UnauthorizedException();
+    }
+
+    return user;
   }
 }

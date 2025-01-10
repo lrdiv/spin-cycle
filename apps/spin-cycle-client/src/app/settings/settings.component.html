@@ -12,6 +12,21 @@
       <input id="discogs-user-control" disabled readonly [value]="settings()?.username" />
     </div>
 
-    <button type="submit">Save Settings</button>
+    <div class="margin-bottom">
+      <label for="discogs-folder-control">Folder (Required)</label>
+      <ng-select
+        #folderSelect
+        (open)="loadFolders()"
+        [clearable]="false"
+        [loading]="folderSelect.isOpen && !foldersLoaded()"
+        [items]="folders()"
+        [compareWith]="compareFolders"
+        labelForId="discogs-folder-control"
+        formControlName="folder"
+        bindLabel="name"
+      />
+    </div>
+
+    <button type="submit" [disabled]="saving() || !form.dirty">Save Settings</button>
   </form>
 </div>

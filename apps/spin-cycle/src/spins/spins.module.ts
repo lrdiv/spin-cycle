@@ -2,10 +2,10 @@ import { Module } from '@nestjs/common';
 
 import { DiscogsModule } from '../discogs/discogs.module';
 import { UserModule } from '../users/user.module';
-import { AuthController } from './auth.controller';
+import { SpinsController } from './spins.controller';
 
 @Module({
+  controllers: [SpinsController],
   imports: [UserModule, DiscogsModule],
-  controllers: [AuthController],
 })
-export class AuthModule {}
+export class SpinsModule {}

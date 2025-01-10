@@ -1,5 +1,12 @@
-.container {
-  margin: 20px;
+.ng-select.ng-select-single .ng-select-container {
+  border: 1px solid var(--color_text--subtle);
+  border-radius: 0;
+  height: auto;
+  padding: var(--space_1);
+}
+
+.ng-select.ng-select-single .ng-select-container .ng-value-container {
+  padding: 0;
 }
 
 .margin-bottom {

@@ -1,1 +1,11 @@
-<p>history works!</p>
+<div class="container">
+  <h1>History</h1>
+  @if (spins().length > 0) {
+  } @else {
+    <h3>No spins yet! Maybe tomorrow 🤞</h3>
+  }
+
+  @if (hasMorePages()) {
+    <button (click)="getNextPage()">Load More</button>
+  }
+</div>

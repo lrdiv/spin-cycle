@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 
-import { UserModule } from '../user.module';
+import { UserModule } from '../users/user.module';
 import { SettingsController } from './settings.controller';
 
 @Module({

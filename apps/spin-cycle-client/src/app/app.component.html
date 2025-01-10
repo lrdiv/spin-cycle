@@ -2,6 +2,8 @@
   <div class="content">
     @if (!authenticated()) {
       <a [href]="authUrl">Login</a>
+    } @else {
+      <a href="#" (click)="logout($event)" role="button">Logout</a>
     }
   </div>
 </main>

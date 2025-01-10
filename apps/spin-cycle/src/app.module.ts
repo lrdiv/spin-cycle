@@ -9,8 +9,10 @@ import { ormConfig } from '../ormconfig';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
+import { DiscogsModule } from './discogs/discogs.module';
 import { SettingsModule } from './settings/settings.module';
-import { UserModule } from './user.module';
+import { SpinsModule } from './spins/spins.module';
+import { UserModule } from './users/user.module';
 
 @Module({
   imports: [
@@ -21,6 +23,8 @@ import { UserModule } from './user.module';
     UserModule,
     AuthModule,
     SettingsModule,
+    SpinsModule,
+    DiscogsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

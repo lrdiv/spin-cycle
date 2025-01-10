@@ -38,6 +38,12 @@ export class UserEntity {
   @Column()
   discogsSecret: string;
 
+  @Column()
+  discogsFolder: number = 0;
+
+  @Column()
+  discogsFolderName: string = 'All';
+
   @CreateDateColumn({ type: 'timestamp with time zone' })
   createdAt: Date | null = null;
 

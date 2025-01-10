@@ -1,15 +1,19 @@
 import { Controller, Get, Redirect, Req } from '@nestjs/common';
-import { UserOut } from '@spin-cycle-mono/shared';
+import { JwtService } from '@nestjs/jwt';
+import { UserEntity } from '@spin-cycle-mono/shared';
 import { Request } from 'express';
 import { Session } from 'express-session';
 
-import { OauthService } from './oauth.service';
+import { DiscogsAuthService } from '../discogs/discogs-auth.service';
 
 const COOKIE_NAME = 'spinCycleDiscogsOauthSecret';
 
 @Controller('/auth')
 export class AuthController {
-  constructor(private readonly oauthService: OauthService) {}
+  constructor(
+    private readonly jwtService: JwtService,
+    private readonly oauthService: DiscogsAuthService,
+  ) {}
 
   @Get('/')
   @Redirect()
@@ -22,7 +26,7 @@ export class AuthController {
   }
 
   @Get('/callback')
-  @Redirect(process.env.POST_AUTH_REDIRECT)
+  @Redirect()
   async getAccessToken(@Req() req: Request): Promise<{ url: string }> {
     const [secret, token, verifier]: [string, string, string] = [
       req.session[COOKIE_NAME],
@@ -30,8 +34,9 @@ export class AuthController {
       req.query['oauth_verifier'] as string,
     ];
 
-    const data: { user: UserOut; token: string } = await this.oauthService.saveTokenAndSecret(secret, token, verifier);
-    return { url: `${process.env.POST_AUTH_REDIRECT}?token=${data.token}` };
+    const user: UserEntity = await this.oauthService.saveTokenAndSecret(secret, token, verifier);
+    const jwt: string = await this.jwtService.signAsync({ sub: user.id }, { expiresIn: 100 * 24 * 60 });
+    return { url: `${process.env.POST_AUTH_REDIRECT}?token=${jwt}` };
   }
 
   private saveSession(session: Session): Promise<void> {
