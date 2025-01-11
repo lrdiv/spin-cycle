@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { SpinOut } from '@spin-cycle-mono/shared';
-import { Page } from '@spin-cycle-mono/shared';
+import { Page, SpinOut } from '@spin-cycle-mono/shared';
 import { Observable, map } from 'rxjs';
 
 import { environment } from '../../environments/environment';
@@ -18,7 +17,7 @@ export class HistoryService {
         return {
           ...page,
           content: page.content.map((spin: SpinOut) => {
-            return new SpinOut(spin.artistName, spin.recordName, spin.createdAt, spin.played);
+            return new SpinOut(spin.id, spin.discogsId, spin.artistName, spin.recordName, spin.createdAt, spin.played);
           }),
         };
       }),

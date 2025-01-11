@@ -11,6 +11,7 @@ export class UserEntity {
     discogsId: number,
     discogsToken: string,
     discogsSecret: string,
+    spins?: SpinEntity[],
   ) {
     this.id = id;
     this.email = email;
@@ -18,6 +19,7 @@ export class UserEntity {
     this.discogsUsername = discogsUsername;
     this.discogsToken = discogsToken;
     this.discogsSecret = discogsSecret;
+    this.spins = spins ?? [];
   }
 
   @PrimaryGeneratedColumn('uuid')
@@ -51,5 +53,5 @@ export class UserEntity {
   updatedAt: Date | null = null;
 
   @OneToMany(() => SpinEntity, (spin) => spin.user, { cascade: false })
-  spins!: SpinEntity[];
+  spins: SpinEntity[];
 }

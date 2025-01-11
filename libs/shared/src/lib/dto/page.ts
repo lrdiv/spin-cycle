@@ -1,14 +1,26 @@
 export class Page<T> {
-  readonly content: T[];
-  readonly page: number;
-  readonly totalItems: number;
-  readonly firstPage: boolean;
-  readonly lastPage: boolean;
+  // static fromDiscogsResponse<T>(discogsResponse: any[], responseKey: string): Page<T> {
+  // }
 
-  constructor(content: T[], page: number, totalItems: number, firstPage: boolean, lastPage: boolean) {
+  content: T[];
+  page: number;
+  totalItems: number;
+  totalPages: number;
+  firstPage: boolean;
+  lastPage: boolean;
+
+  constructor(
+    content: T[],
+    page: number,
+    totalItems: number,
+    totalPages: number,
+    firstPage: boolean,
+    lastPage: boolean,
+  ) {
     this.content = content;
     this.page = page;
     this.totalItems = totalItems;
+    this.totalPages = totalPages;
     this.firstPage = firstPage;
     this.lastPage = lastPage;
   }
