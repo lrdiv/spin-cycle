@@ -7,3 +7,6 @@ export const sleep = (seconds: number): Promise<void> => {
     setTimeout(() => resolve(), seconds * 1000);
   });
 };
+
+export const AM_CRON_EXPRESSION: string = '0 9 * * *';
+export const TEST_CRON_EXPRESSION: string = '*/2 * * * *';
