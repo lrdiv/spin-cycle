@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "start-deps": "docker compose up -d",
-    "start": "npm run start-deps && nx run-many -t serve -p=spin-cycle,spin-cycle-client"
+    "start": "npm run start-deps && nx run-many -t serve"
   },
   "private": true,
   "dependencies": {
@@ -22,6 +22,7 @@
     "axios": "^1.6.0",
     "connect-redis": "^8.0.1",
     "express-session": "^1.18.1",
+    "mailgun.js": "^11.1.0",
     "oauth-1.0a": "^2.2.6",
     "pg": "^8.13.1",
     "redis": "^4.7.0",

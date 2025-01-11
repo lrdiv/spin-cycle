@@ -3,11 +3,10 @@ import { Cron } from '@nestjs/schedule';
 import { ReleaseOut, SpinEntity, UserEntity } from '@spin-cycle-mono/shared';
 
 import { DiscogsService } from '../discogs/discogs.service';
+import { MailerService } from '../mailer/mailer.service';
 import { SpinsService } from '../spins/spins.service';
 import { UserService } from '../users/user.service';
-import { sleep } from '../util/util';
-
-const CRON_EXPRESSION: string = '0 9 * * *'; // 9AM every day
+import { AM_CRON_EXPRESSION, sleep } from '../util/util';
 
 @Injectable()
 export class WorkerService {
@@ -15,11 +14,12 @@ export class WorkerService {
 
   constructor(
     private readonly discogsService: DiscogsService,
+    private readonly mailerService: MailerService,
     private readonly spinsService: SpinsService,
     private readonly userService: UserService,
   ) {}
 
-  @Cron(CRON_EXPRESSION)
+  @Cron(AM_CRON_EXPRESSION)
   async sendSpins(): Promise<void> {
     const users: UserEntity[] = await this.userService.findAllWithUnplayed();
     for (const user of users) {
@@ -42,7 +42,7 @@ export class WorkerService {
 
     const { discogsId, artistName, recordName } = nextSpin;
     const releaseSpin: SpinEntity = new SpinEntity(null, user, discogsId, artistName, recordName, new Date());
-    await this.spinsService.create(releaseSpin);
+    await Promise.all([this.spinsService.create(releaseSpin), this.mailerService.sendMail(releaseSpin, user)]);
   }
 
   private handleSpinError(e: unknown, user: UserEntity) {

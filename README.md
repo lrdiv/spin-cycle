@@ -13,8 +13,10 @@ Spin Cycle sends you a randomly selected record (or CD! or cassette! or whatever
 ### TODO:
 
 - [x] Authentication with Discogs
-- [ ] Messaging (SMTP)
-- [ ] Scheduling
-- [ ] History UI
-- [ ] Settings UI (custom time, collection)
+- [x] Messaging (SMTP)
+- [x] Scheduling
+- [x] History UI
+- [x] Settings UI (custom folder)
+- [ ] Nestjs queues
+- [ ] Custom email delivery time
 - [ ] Donation-based SMS option (?)
