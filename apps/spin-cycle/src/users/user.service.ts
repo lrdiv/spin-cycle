@@ -30,6 +30,10 @@ export class UserService {
     return this.userRepository.findOne({ where: { discogsUsername: username } });
   }
 
+  findByDiscogsUsernameWithSpins(username: string): Promise<UserEntity | null> {
+    return this.userRepository.findOne({ where: { discogsUsername: username }, relations: ['spins'] });
+  }
+
   findByIdWithSpins(id: string): Promise<UserEntity | null> {
     return this.userRepository.findOne({ where: { id }, relations: ['spins'] });
   }

@@ -9,4 +9,8 @@ export class SpinsService {
     @InjectRepository(SpinEntity)
     private readonly spinRepository: Repository<SpinEntity>,
   ) {}
+
+  async create(spin: SpinEntity): Promise<SpinEntity> {
+    return this.spinRepository.save(spin);
+  }
 }

@@ -16,7 +16,7 @@ export class DiscogsController {
 
   @Get('/folders')
   async getCollections(@Req() req: Request): Promise<FolderOut[]> {
-    const user = await this.userService.findById(req['user']?.sub);
+    const user = await this.userService.findById(req['user'].sub);
     if (!user) {
       throw new UnauthorizedException();
     }
