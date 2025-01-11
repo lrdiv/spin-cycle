@@ -10,6 +10,7 @@ import {
 import OAuth from 'oauth-1.0a';
 
 import { AllReleasesSpunException } from '../spins/spins.exception';
+import { getRange } from '../util/util';
 import { DiscogsAuthService } from './discogs-auth.service';
 
 @Injectable()
@@ -62,7 +63,7 @@ export class DiscogsService {
       return firstPage;
     }
 
-    const remaining: number[] = this.getRange(2, first.pagination.pages + 1);
+    const remaining: number[] = getRange(2, first.pagination.pages + 1);
     const promises: Array<IDiscogsReleases> = await Promise.all(
       remaining.map((page: number) => {
         return this.getRecordsPageFromFolder(user, page);
@@ -88,9 +89,5 @@ export class DiscogsService {
   private getHeaders(url: string, user: UserEntity, method = 'GET'): OAuth.Header {
     const { discogsToken: key, discogsSecret: secret } = user;
     return this.client.toHeader(this.client.authorize({ url, method }, { key, secret }));
-  }
-
-  private getRange(start: number, end: number, step: number = 1): number[] {
-    return Array.from({ length: Math.ceil((end - start) / step) }, (_, i) => start + i * step);
   }
 }

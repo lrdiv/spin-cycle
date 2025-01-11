@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Page, SpinEntity, SpinOut } from '@spin-cycle-mono/shared';
+import { Page, SpinEntity, SpinOut, UserEntity } from '@spin-cycle-mono/shared';
 import { DeepPartial, Repository, SelectQueryBuilder } from 'typeorm';
 
 @Injectable()
@@ -10,16 +10,16 @@ export class SpinsService {
     private readonly spinRepository: Repository<SpinEntity>,
   ) {}
 
-  async create(spin: DeepPartial<SpinEntity>): Promise<SpinEntity> {
+  create(spin: DeepPartial<SpinEntity>): Promise<SpinEntity> {
     return this.spinRepository.save(spin);
   }
 
-  async update(spin: SpinEntity, update: DeepPartial<SpinEntity>): Promise<SpinEntity> {
+  update(spin: SpinEntity, update: DeepPartial<SpinEntity>): Promise<SpinEntity> {
     const updated: SpinEntity = Object.assign(spin, update);
     return this.spinRepository.save(updated);
   }
 
-  async findById(id: number): Promise<SpinEntity | null> {
+  findById(id: number): Promise<SpinEntity | null> {
     return this.spinRepository.findOne({ where: { id }, relations: ['user'] });
   }
 
@@ -37,5 +37,9 @@ export class SpinsService {
     const spins: SpinOut[] = entities.map((spin: SpinEntity) => SpinOut.fromSpin(spin));
     const pageCount = Math.ceil(itemCount / perPage);
     return new Page<SpinOut>(spins, page, itemCount, pageCount, page === 1, page === pageCount);
+  }
+
+  findAllForUser(user: UserEntity) {
+    return this.spinRepository.find({ where: { user: { id: user.id } } });
   }
 }
