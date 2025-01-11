@@ -35,28 +35,23 @@ export class SettingsController {
   @Patch('/:id')
   async updateSettings(
     @Param('id') id: string,
+    @Req() req: Request,
     @Body() params: { email: string; folderId: number; folderName: string },
   ): Promise<UserOut> {
+    if (req['user'].sub !== id) {
+      throw new UnauthorizedException();
+    }
+
     const user = await this.userService.findById(id);
     if (!user) {
       throw new UnauthorizedException();
     }
 
-    if (params.email) {
-      user.email = params.email;
-    }
-    if (params.folderId) {
-      user.discogsFolder = params.folderId;
-    }
-    if (params.folderName) {
-      user.discogsFolderName = params.folderName;
-    }
-
-    const updated: UserEntity = await this.userService.update(user);
+    const updated: UserEntity = await this.userService.update(user, params);
     if (!updated) {
       throw new BadRequestException();
     }
 
-    return UserOut.fromUser(user);
+    return UserOut.fromUser(updated);
   }
 }

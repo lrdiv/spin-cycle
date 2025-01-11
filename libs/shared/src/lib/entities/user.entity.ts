@@ -11,7 +11,7 @@ export class UserEntity {
     discogsId: number,
     discogsToken: string,
     discogsSecret: string,
-    spins?: SpinEntity[],
+    spins: SpinEntity[],
   ) {
     this.id = id;
     this.email = email;
@@ -19,7 +19,7 @@ export class UserEntity {
     this.discogsUsername = discogsUsername;
     this.discogsToken = discogsToken;
     this.discogsSecret = discogsSecret;
-    this.spins = spins ?? [];
+    this.spins = spins;
   }
 
   @PrimaryGeneratedColumn('uuid')
@@ -27,6 +27,9 @@ export class UserEntity {
 
   @Column()
   email: string;
+
+  @Column()
+  allPlayed: boolean = false;
 
   @Column({ nullable: true })
   discogsUsername: string;
