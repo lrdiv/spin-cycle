@@ -1,11 +1,39 @@
 <div class="container">
-  <h1>History</h1>
-  @if (spins().length > 0) {
-  } @else {
-    <h3>No spins yet! Maybe tomorrow 🤞</h3>
-  }
+  <h1 class="margin-bottom">History</h1>
+  @if (spinsLoaded()) {
+    @if (loadedSpins()) {
+      <table>
+        <thead>
+          <tr>
+            <td>Date</td>
+            <td>Artist(s)</td>
+            <td>Album</td>
+            <td>Played</td>
+          </tr>
+        </thead>
+        <tbody>
+          @for (spin of spins(); track spin.id) {
+            <tr [class.text-gray-300]="!spin.played">
+              <td>{{ spin.createdAt | date }}</td>
+              <td>{{ spin.artistName }}</td>
+              <td>
+                <a [href]="'https://discogs.com/release/' + spin.discogsId" target="_blank">{{ spin.recordName }}</a>
+              </td>
+              <td>
+                <button (click)="updatePlayed(spin)">
+                  {{ spin.played ? "I didn't play this" : 'I played this' }}
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
 
-  @if (hasMorePages()) {
-    <button (click)="getNextPage()">Load More</button>
+      @if (hasMorePages()) {
+        <button (click)="getNextPage()">Load More</button>
+      }
+    } @else {
+      <h3>No spins yet! Maybe tomorrow 🤞</h3>
+    }
   }
 </div>

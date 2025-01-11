@@ -83,21 +83,22 @@ export class DiscogsAuthService {
     token: string,
     secret: string,
   ): Promise<UserEntity> {
-    const user: UserEntity = new UserEntity(null, null, identity.username, identity.id, token, secret);
+    const user: UserEntity = new UserEntity(null, null, identity.username, identity.id, token, secret, []);
     return this.userService.create(user);
   }
 
   private async updateUserAuthDetails(
     user: UserEntity,
     identity: IDiscogsIdentity,
-    token: string,
-    secret: string,
+    discogsToken: string,
+    discogsSecret: string,
   ): Promise<UserEntity> {
-    user.discogsId = identity.id;
-    user.discogsUsername = identity.username;
-    user.discogsToken = token;
-    user.discogsSecret = secret;
-    return this.userService.update(user);
+    return this.userService.update(user, {
+      discogsId: identity.id,
+      discogsUsername: identity.username,
+      discogsToken,
+      discogsSecret,
+    });
   }
 
   private async getDiscogsUser(client: OAuth, token: string, secret: string): Promise<IDiscogsIdentity> {

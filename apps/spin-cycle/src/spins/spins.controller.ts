@@ -1,11 +1,24 @@
-import { Controller, Get, Logger, Req, UnauthorizedException, UseGuards } from '@nestjs/common';
-import { ReleaseOut, SpinEntity, SpinOut, UserEntity } from '@spin-cycle-mono/shared';
+import {
+  Body,
+  Controller,
+  Get,
+  Logger,
+  NotFoundException,
+  Param,
+  ParseIntPipe,
+  Patch,
+  Query,
+  Req,
+  UnauthorizedException,
+  UseGuards,
+} from '@nestjs/common';
+import { Page, ReleaseOut, SpinEntity, SpinOut, UserEntity } from '@spin-cycle-mono/shared';
 import { Request } from 'express';
+import { DeepPartial } from 'typeorm';
 
 import { AuthGuard } from '../auth/auth.guard';
 import { DiscogsService } from '../discogs/discogs.service';
 import { UserService } from '../users/user.service';
-import { AllReleasesSpunException } from './spins.exception';
 import { SpinsService } from './spins.service';
 
 @Controller('/spins')
@@ -17,36 +30,48 @@ export class SpinsController {
     private readonly userService: UserService,
   ) {}
 
-  @Get('/random')
-  async getRandomRelease(@Req() req: Request): Promise<SpinOut> {
-    const user: UserEntity = await this.userService
-      .findByIdWithSpins(req['user'].sub)
-      .catch((e) => this.handleUnauthorized(e));
-
-    const nextSpin: ReleaseOut | null = await this.discogsService
-      .getRandomRecord(user)
-      .catch((e) => this.handleAllRecordsPlayed(e));
-
-    if (!nextSpin) {
-      return null;
-    }
-
-    const { discogsId, artistName, recordName } = nextSpin;
-    const releaseSpin: SpinEntity = new SpinEntity(null, user, discogsId, artistName, recordName, new Date());
-    const savedSpin: SpinEntity = await this.spinsService.create(releaseSpin);
-    return SpinOut.fromSpin(savedSpin);
+  @Get('/')
+  async getUserSpins(@Req() req: Request, @Query('page', ParseIntPipe) page: number): Promise<Page<SpinOut>> {
+    return this.spinsService.getPageForUser(req['user'].sub, page).catch((e) => this.handleUnauthorized(e));
   }
 
-  private handleAllRecordsPlayed(e: unknown): null {
-    if (e instanceof AllReleasesSpunException) {
-      Logger.error(e);
-      return null;
+  @Patch('/:id')
+  async updateSpin(@Param('id') id: number, @Req() req: Request, @Body() body: DeepPartial<SpinOut>): Promise<SpinOut> {
+    const spin: SpinEntity | null = await this.spinsService.findById(id);
+    this.validateSpinAndUser(spin, req['user'].sub);
+
+    return this.spinsService.update(spin, body);
+  }
+
+  @Get('/random')
+  async getRandomRelease(@Req() req: Request): Promise<SpinOut> {
+    const userId: string = req['user'].sub;
+    const user: UserEntity = await this.userService.findByIdWithSpins(userId).catch((e) => this.handleUnauthorized(e));
+
+    const nextSpin: ReleaseOut | null = await this.discogsService.getRandomRecord(user);
+
+    if (nextSpin) {
+      const { discogsId, artistName, recordName } = nextSpin;
+      const releaseSpin: SpinEntity = new SpinEntity(null, user, discogsId, artistName, recordName, new Date());
+      const savedSpin: SpinEntity = await this.spinsService.create(releaseSpin);
+      return SpinOut.fromSpin(savedSpin);
     }
-    throw e;
+
+    await this.userService.update(user, { allPlayed: true });
+    return null;
   }
 
   private handleUnauthorized(e: unknown): null {
     Logger.error(e);
     throw new UnauthorizedException();
+  }
+
+  private validateSpinAndUser(spin: SpinEntity, userId: string): void {
+    if (spin.user.id !== userId) {
+      throw new UnauthorizedException();
+    }
+    if (!spin) {
+      throw new NotFoundException();
+    }
   }
 }

@@ -23,4 +23,8 @@ export class HistoryService {
       }),
     );
   }
+
+  updateSpin(spin: SpinOut): Observable<SpinOut> {
+    return this.http.patch<SpinOut>(`${environment.apiUrl}/spins/${spin.id}`, spin);
+  }
 }
