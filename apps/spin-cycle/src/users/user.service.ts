@@ -27,7 +27,7 @@ export class UserService {
     return this.userRepository.findOne({ where: { discogsId: id } });
   }
 
-  findByIdWithSpins(id: string): Promise<UserEntity | null> {
-    return this.userRepository.findOne({ where: { id }, relations: ['spins'] });
+  findAllWithUnplayed(): Promise<UserEntity[]> {
+    return this.userRepository.find({ where: { allPlayed: false }, relations: [] });
   }
 }

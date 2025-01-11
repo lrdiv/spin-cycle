@@ -13,6 +13,7 @@ import { DiscogsModule } from './discogs/discogs.module';
 import { SettingsModule } from './settings/settings.module';
 import { SpinsModule } from './spins/spins.module';
 import { UserModule } from './users/user.module';
+import { WorkerModule } from './worker/worker.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { UserModule } from './users/user.module';
     SettingsModule,
     SpinsModule,
     DiscogsModule,
+    WorkerModule,
   ],
   controllers: [AppController],
   providers: [AppService],
