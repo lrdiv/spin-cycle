@@ -4,12 +4,9 @@ import 'dotenv/config';
 
 export const ormConfig: TypeOrmModuleOptions = {
   type: 'postgres',
-  host: process.env.DB_HOST,
-  port: parseInt(process.env.DB_PORT) || 5432,
-  username: process.env.DB_USERNAME,
-  password: process.env.DB_PASSWORD,
+  url: process.env.DATABASE_URL,
   database: process.env.DB_DATABASE,
   entities: [UserEntity, SpinEntity],
-  synchronize: true,
+  synchronize: process.env.NODE_ENV !== 'production',
   logging: true,
 };

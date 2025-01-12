@@ -10,7 +10,6 @@ RUN npm install
 COPY . .
 
 RUN nx run-many -t build -p spin-cycle spin-cycle-client
+RUN cp -R dist/apps/spin-cycle-client dist/apps/spin-cycle/assets/
 
-# Copy client dist to api dist
-
-ENTRYPOINT ["node", "/usr/bin/app"]
+ENTRYPOINT ["node", "dist/apps/spin-cycle/main.js"]

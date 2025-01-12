@@ -1,4 +1,4 @@
-import { Controller, Get, Redirect, Req } from '@nestjs/common';
+import { Controller, Get, Logger, Redirect, Req } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserEntity } from '@spin-cycle-mono/shared';
 import { Request } from 'express';
@@ -8,8 +8,10 @@ import { DiscogsAuthService } from '../discogs/discogs-auth.service';
 
 const COOKIE_NAME = 'spinCycleDiscogsOauthSecret';
 
-@Controller('/auth')
+@Controller('/api/auth')
 export class AuthController {
+  private readonly logger: Logger = new Logger(AuthController.name);
+
   constructor(
     private readonly jwtService: JwtService,
     private readonly oauthService: DiscogsAuthService,
