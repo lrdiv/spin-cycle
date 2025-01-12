@@ -1,4 +1,4 @@
 export const environment = {
-  apiUrl: 'https://somecooldomain.com',
+  apiUrl: '/api',
   localStorageTokenKey: 'spinCycleAuthToken',
 };

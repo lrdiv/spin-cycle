@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { UserEntity } from '@spin-cycle-mono/shared';
 import OAuth from 'oauth-1.0a';
+import { v4 as uuid } from 'uuid';
 
 import { UserService } from '../users/user.service';
 
@@ -27,6 +28,8 @@ interface IOAuthConfig {
 
 @Injectable()
 export class DiscogsAuthService {
+  private readonly logger: Logger = new Logger(DiscogsAuthService.name);
+
   private readonly config: IOAuthConfig = {
     urls: {
       requestToken: 'https://api.discogs.com/oauth/request_token',
@@ -63,6 +66,8 @@ export class DiscogsAuthService {
   }
 
   async saveTokenAndSecret(secret: string, token: string, verifier: string): Promise<UserEntity> {
+    this.logger.log(`Token: ${token}`);
+    this.logger.log(`Secret: ${secret}`);
     const requestData = { ...this.getRequestData('accessToken', 'POST'), data: { oauth_verifier: verifier } };
     const headers: OAuth.Header = this.client.toHeader(this.client.authorize(requestData, { key: token, secret }));
     const params = new URLSearchParams(await this.makeRequest(this.config.urls.accessToken, 'POST', headers, true));
@@ -83,7 +88,7 @@ export class DiscogsAuthService {
     token: string,
     secret: string,
   ): Promise<UserEntity> {
-    const user: UserEntity = new UserEntity(null, null, identity.username, identity.id, token, secret, []);
+    const user: UserEntity = new UserEntity(uuid(), null, identity.username, identity.id, token, secret, []);
     return this.userService.create(user);
   }
 
@@ -117,6 +122,8 @@ export class DiscogsAuthService {
     });
 
     if (!resp.ok) {
+      this.logger.error(`Got status: ${resp.status}`);
+      this.logger.error(await resp.text());
       return Promise.reject('Unable to make authentication request');
     }
 

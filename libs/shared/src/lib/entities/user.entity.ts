@@ -12,6 +12,7 @@ export class UserEntity {
     discogsToken: string,
     discogsSecret: string,
     spins: SpinEntity[],
+    createdAt: Date = new Date(),
   ) {
     this.id = id;
     this.email = email;
@@ -20,18 +21,19 @@ export class UserEntity {
     this.discogsToken = discogsToken;
     this.discogsSecret = discogsSecret;
     this.spins = spins;
+    this.createdAt = createdAt;
   }
 
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ nullable: true })
   email: string;
 
   @Column()
   allPlayed: boolean = false;
 
-  @Column({ nullable: true })
+  @Column()
   discogsUsername: string;
 
   @Column()
@@ -52,7 +54,7 @@ export class UserEntity {
   @CreateDateColumn({ type: 'timestamp with time zone' })
   createdAt: Date | null = null;
 
-  @UpdateDateColumn({ type: 'timestamp with time zone' })
+  @UpdateDateColumn({ nullable: true, type: 'timestamp with time zone' })
   updatedAt: Date | null = null;
 
   @OneToMany(() => SpinEntity, (spin) => spin.user, { cascade: false })
