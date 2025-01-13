@@ -3,6 +3,7 @@ import { UserEntity } from '@spin-cycle-mono/shared';
 import OAuth from 'oauth-1.0a';
 import { v4 as uuid } from 'uuid';
 
+import { MailerService } from '../mailer/mailer.service';
 import { UserService } from '../users/user.service';
 
 interface IDiscogsIdentity {
@@ -51,7 +52,10 @@ export class DiscogsAuthService {
     signature_method: 'PLAINTEXT',
   });
 
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly mailerService: MailerService,
+    private readonly userService: UserService,
+  ) {}
 
   async getRequestToken(): Promise<[string, string]> {
     const headers: OAuth.Header = this.client.toHeader(
@@ -89,7 +93,9 @@ export class DiscogsAuthService {
     secret: string,
   ): Promise<UserEntity> {
     const user: UserEntity = new UserEntity(uuid(), null, identity.username, identity.id, token, secret, []);
-    return this.userService.create(user);
+    const saved: UserEntity = await this.userService.create(user);
+    await this.mailerService.sendAdminSignupMail(saved);
+    return saved;
   }
 
   private async updateUserAuthDetails(

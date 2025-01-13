@@ -8,23 +8,35 @@ import * as process from 'node:process';
 export class MailerService {
   private readonly logger: Logger = new Logger(MailerService.name);
 
-  async sendMail(spin: SpinEntity, user: UserEntity): Promise<MessagesSendResult> {
+  sendRecommendationMail(spin: SpinEntity, user: UserEntity): Promise<MessagesSendResult> {
+    return this.sendMail([user.email], this.getRecommendationSubject(), this.getRecommendationBody(spin));
+  }
+
+  sendAdminSignupMail(user: UserEntity): Promise<MessagesSendResult> {
+    return this.sendMail(
+      ['spincycle@lrdiv.co'],
+      '🚨 New Spin Cycle Signup',
+      `<p>Discogs user ${user.discogsUsername} just signed up! 🙌</p>`,
+    );
+  }
+
+  private sendMail(to: string[], subject: string, body: string): Promise<MessagesSendResult> {
     return this.getClient().messages.create('lrdiv.co', {
+      to,
+      subject,
       from: `SpinCycle <spincycle@lrdiv.co>`,
-      to: [user.email],
-      subject: this.getSubject(),
-      html: this.getBody(spin),
+      html: body,
     });
   }
 
-  private getSubject(): string {
+  private getRecommendationSubject(): string {
     const today: Date = new Date();
     const month: string = today.toLocaleString('default', { month: 'long' });
     const day: number = today.getDate();
     return `Your ${month} ${day} record-mendation from SpinCycle has arrived! 😤`;
   }
 
-  private getBody(spin: SpinEntity): string {
+  private getRecommendationBody(spin: SpinEntity): string {
     return `
       <p>Hello there!</p>
       <p>Today's randomly selected record from your collection is:</p>
