@@ -42,7 +42,10 @@ export class WorkerService {
 
     const { discogsId, artistName, recordName } = nextSpin;
     const releaseSpin: SpinEntity = new SpinEntity(null, user, discogsId, artistName, recordName, new Date());
-    await Promise.all([this.spinsService.create(releaseSpin), this.mailerService.sendMail(releaseSpin, user)]);
+    await Promise.all([
+      this.spinsService.create(releaseSpin),
+      this.mailerService.sendRecommendationMail(releaseSpin, user),
+    ]);
   }
 
   private handleSpinError(e: unknown, user: UserEntity) {
