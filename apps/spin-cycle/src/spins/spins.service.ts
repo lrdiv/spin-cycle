@@ -35,8 +35,9 @@ export class SpinsService {
     const itemCount = await query.getCount();
     const { entities } = await query.getRawAndEntities();
     const spins: SpinOut[] = entities.map((spin: SpinEntity) => SpinOut.fromSpin(spin));
-    const pageCount = Math.ceil(itemCount / perPage);
-    return new Page<SpinOut>(spins, page, itemCount, pageCount, page === 1, page === pageCount);
+    const pageCount: number = Math.ceil(itemCount / perPage);
+    const lastPage: boolean = pageCount === 0 || page === pageCount;
+    return new Page<SpinOut>(spins, page, itemCount, pageCount, page === 1, lastPage);
   }
 
   findAllForUser(user: UserEntity) {

@@ -16,7 +16,7 @@ export function authInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn):
     catchError((err: HttpResponse<unknown>) => {
       if (err.status === 401) {
         authService.revokeToken();
-        inject(Router).navigate(['/login']);
+        inject(Router).navigate(['/history']);
       }
       return of(err);
     }),

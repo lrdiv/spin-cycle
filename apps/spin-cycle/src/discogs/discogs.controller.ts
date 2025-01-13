@@ -6,7 +6,7 @@ import { AuthGuard } from '../auth/auth.guard';
 import { UserService } from '../users/user.service';
 import { DiscogsService } from './discogs.service';
 
-@Controller('/api/discogs')
+@Controller('/discogs')
 @UseGuards(AuthGuard)
 export class DiscogsController {
   constructor(

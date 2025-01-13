@@ -15,7 +15,7 @@ import { UserEntity, UserOut } from '@spin-cycle-mono/shared';
 import { AuthGuard } from '../auth/auth.guard';
 import { UserService } from '../users/user.service';
 
-@Controller('/api/settings')
+@Controller('/settings')
 @UseGuards(AuthGuard)
 export class SettingsController {
   constructor(private readonly userService: UserService) {}
