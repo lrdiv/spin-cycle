@@ -5,8 +5,13 @@ import { AuthGuard } from './auth/auth.guard';
 import { UnauthGuard } from './auth/unauth.guard';
 import { HistoryComponent } from './history/history.component';
 import { SettingsComponent } from './settings/settings.component';
+import { WelcomeComponent } from './welcome.component';
 
 export const routes: Routes = [
+  {
+    path: '',
+    component: WelcomeComponent,
+  },
   {
     path: 'auth',
     component: AuthComponent,

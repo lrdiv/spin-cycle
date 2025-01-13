@@ -27,6 +27,6 @@ export class AppComponent implements OnInit {
   logout(e: MouseEvent): Promise<boolean> {
     e.preventDefault();
     this.authService.revokeToken();
-    return this.router.navigate(['/login']);
+    return this.router.navigate(['/']);
   }
 }

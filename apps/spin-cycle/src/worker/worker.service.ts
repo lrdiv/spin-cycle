@@ -28,7 +28,7 @@ export class WorkerService {
       } catch (e: unknown) {
         this.handleSpinError(e, user);
       }
-      await sleep(5);
+      await sleep(3);
     }
   }
 
