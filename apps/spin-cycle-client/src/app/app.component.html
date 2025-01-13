@@ -2,7 +2,7 @@
   <a [routerLink]="['/history']">Spin Cycle</a>
   <span class="pull-right">
     @if (!authenticated()) {
-      <a [href]="authUrl">Login</a>
+      <a [href]="authUrl">Login with Discogs</a>
     } @else {
       <a [routerLink]="['/settings']">Settings</a>
       <a href="#" (click)="logout($event)" role="button">Logout</a>
@@ -11,6 +11,8 @@
 </nav>
 <main class="main">
   <div class="content">
-    <router-outlet />
+    <div class="container">
+      <router-outlet />
+    </div>
   </div>
 </main>

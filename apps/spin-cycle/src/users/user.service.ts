@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from '@spin-cycle-mono/shared';
-import { DeepPartial, Repository } from 'typeorm';
+import { DeepPartial, IsNull, Not, Repository } from 'typeorm';
 
 @Injectable()
 export class UserService {
@@ -28,6 +28,6 @@ export class UserService {
   }
 
   findAllWithUnplayed(): Promise<UserEntity[]> {
-    return this.userRepository.find({ where: { allPlayed: false }, relations: [] });
+    return this.userRepository.find({ where: { allPlayed: false, email: Not(IsNull()) }, relations: [] });
   }
 }

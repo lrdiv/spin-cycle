@@ -7,9 +7,19 @@ import { RedisClientType, createClient } from 'redis';
 
 import { AppModule } from './app.module';
 
+const corsOrigin: string[] =
+  process.env.NODE_ENV === 'production'
+    ? ['https://spincycle.lrdiv.co', 'https://discogs.com']
+    : ['http://localhost:4200'];
+
 async function bootstrap() {
   const app: NestExpressApplication = await NestFactory.create<NestExpressApplication>(AppModule, { cors: true });
   app.setGlobalPrefix('api');
+  app.enableCors({
+    origin: corsOrigin,
+    methods: ['GET', 'PATCH', 'POST'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  });
   const redisClient: RedisClientType = createClient({
     url: process.env.REDIS_URL || 'redis://localhost:6379',
   });
