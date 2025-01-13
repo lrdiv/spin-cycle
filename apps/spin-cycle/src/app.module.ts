@@ -21,6 +21,7 @@ import { WorkerModule } from './worker/worker.module';
     ConfigModule.forRoot(),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'spin-cycle-client', 'browser'),
+      exclude: ['/api*'],
     }),
     ScheduleModule.forRoot(),
     TypeOrmModule.forRoot(ormConfig),

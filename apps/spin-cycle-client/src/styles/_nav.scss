@@ -1,0 +1,12 @@
+.navbar {
+  background-color: #fff;
+  border-bottom: 1px solid var(--color_text--subtle);
+  padding: 10px 40px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.navbar a {
+  padding: 0 10px;
+}

@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
+import { MockProvider } from 'ng-mocks';
 import { describe } from 'vitest';
 
 import { AppComponent } from './app.component';
@@ -8,7 +10,10 @@ describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
 
   beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({ imports: [AppComponent] }).compileComponents();
+    TestBed.configureTestingModule({
+      imports: [AppComponent],
+      providers: [MockProvider(ActivatedRoute)],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

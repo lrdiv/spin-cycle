@@ -21,7 +21,7 @@ import { DiscogsService } from '../discogs/discogs.service';
 import { UserService } from '../users/user.service';
 import { SpinsService } from './spins.service';
 
-@Controller('/api/spins')
+@Controller('/spins')
 @UseGuards(AuthGuard)
 export class SpinsController {
   constructor(

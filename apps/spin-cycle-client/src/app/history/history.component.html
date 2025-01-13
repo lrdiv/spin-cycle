@@ -31,9 +31,9 @@
 
       @if (hasMorePages()) {
         <button (click)="getNextPage()">Load More</button>
+      } @else {
+        <h3 class="margin-top">No spins yet! Maybe tomorrow 🤞</h3>
       }
-    } @else {
-      <h3>No spins yet! Maybe tomorrow 🤞</h3>
     }
   }
 </div>

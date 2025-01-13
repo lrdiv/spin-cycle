@@ -1,11 +1,16 @@
-<main class="main">
-  <div class="content">
+<nav class="navbar">
+  <a [routerLink]="['/history']">Spin Cycle</a>
+  <span class="pull-right">
     @if (!authenticated()) {
       <a [href]="authUrl">Login</a>
     } @else {
+      <a [routerLink]="['/settings']">Settings</a>
       <a href="#" (click)="logout($event)" role="button">Logout</a>
     }
+  </span>
+</nav>
+<main class="main">
+  <div class="content">
+    <router-outlet />
   </div>
 </main>
-
-<router-outlet />

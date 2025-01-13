@@ -1,7 +1,4 @@
 export class Page<T> {
-  // static fromDiscogsResponse<T>(discogsResponse: any[], responseKey: string): Page<T> {
-  // }
-
   content: T[];
   page: number;
   totalItems: number;

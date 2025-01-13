@@ -8,7 +8,7 @@ import { DiscogsAuthService } from '../discogs/discogs-auth.service';
 
 const COOKIE_NAME = 'spinCycleDiscogsOauthSecret';
 
-@Controller('/api/auth')
+@Controller('/auth')
 export class AuthController {
   private readonly logger: Logger = new Logger(AuthController.name);
 

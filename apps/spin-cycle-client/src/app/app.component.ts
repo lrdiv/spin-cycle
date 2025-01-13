@@ -1,12 +1,12 @@
 import { Component, OnInit, Signal, inject } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 
 import { AuthService } from './auth/auth.service';
 
 @Component({
   selector: 'sc-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, RouterLink],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
@@ -19,6 +19,9 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.restoreToken();
+    if (this.authenticated()) {
+      this.router.navigate(['/history']);
+    }
   }
 
   logout(e: MouseEvent): Promise<boolean> {

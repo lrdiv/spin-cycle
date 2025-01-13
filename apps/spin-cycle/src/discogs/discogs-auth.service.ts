@@ -130,7 +130,11 @@ export class DiscogsAuthService {
     return text ? resp.text() : resp.json();
   }
 
-  private getRequestData(url: keyof IOAuthConfig['urls'], method: 'GET' | 'POST', data?: any): OAuth.RequestOptions {
+  private getRequestData(
+    url: keyof IOAuthConfig['urls'],
+    method: 'GET' | 'POST',
+    data?: Record<`oauth_${string}`, unknown>,
+  ): OAuth.RequestOptions {
     data ||= { oauth_callback: this.config.urls.callback };
     return { url: this.config.urls[url], method, data };
   }

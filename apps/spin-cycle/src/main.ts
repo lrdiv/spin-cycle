@@ -9,7 +9,7 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app: NestExpressApplication = await NestFactory.create<NestExpressApplication>(AppModule, { cors: true });
-
+  app.setGlobalPrefix('api');
   const redisClient: RedisClientType = createClient({
     url: process.env.REDIS_URL || 'redis://localhost:6379',
   });
