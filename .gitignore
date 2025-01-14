@@ -49,3 +49,6 @@ vitest.config.*.timestamp*
 .env*
 !.envrc
 !.env.*sample
+
+# Sentry Config File
+.sentryclirc
