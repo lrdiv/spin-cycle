@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
+    "secret:gen": "node -e \"console.log(crypto.randomBytes(32).toString('hex'))\"",
     "start-deps": "docker compose up -d",
     "start": "npm run start-deps && nx run-many -t serve"
   },
