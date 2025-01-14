@@ -1,6 +1,9 @@
 FROM node:20
 LABEL authors="Lawrence Davis"
 
+ARG SENTRY_AUTH_TOKEN
+ENV SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN
+
 RUN npm install -g nx@latest
 
 WORKDIR /usr/src/app
