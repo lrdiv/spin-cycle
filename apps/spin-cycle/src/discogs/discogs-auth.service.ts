@@ -93,8 +93,7 @@ export class DiscogsAuthService {
     secret: string,
   ): Promise<UserEntity> {
     const user: UserEntity = new UserEntity(uuid(), null, identity.username, identity.id, token, secret, []);
-    const saved: UserEntity = await this.userService.create(user);
-    await this.mailerService.sendAdminSignupMail(saved);
+    const [saved] = await Promise.all([this.userService.create(user), this.mailerService.sendAdminSignupMail(user)]);
     return saved;
   }
 
