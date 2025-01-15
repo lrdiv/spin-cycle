@@ -34,8 +34,8 @@
   /* Colors */
   --color_text--default: #18181b;
   --color_text--subtle: #71717a;
-  --color_text--link: #6366f1;
-  --color_text--link-alt: #4f46e5;
+  --color_text--link: #496e97;
+  --color_text--link-alt: #365271;
   --color_text--accent: var(--color_text--link);
   --color_background--surface: white;
   --color_background--element: #f4f4f5;

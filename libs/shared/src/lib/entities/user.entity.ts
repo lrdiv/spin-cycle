@@ -45,10 +45,10 @@ export class UserEntity {
   @Column()
   discogsSecret: string;
 
-  @Column()
+  @Column({ default: 0 })
   discogsFolder: number = 0;
 
-  @Column()
+  @Column({ default: 'All' })
   discogsFolderName: string = 'All';
 
   @CreateDateColumn({ type: 'timestamp with time zone' })

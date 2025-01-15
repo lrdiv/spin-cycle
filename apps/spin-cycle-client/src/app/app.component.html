@@ -1,5 +1,8 @@
 <nav class="navbar">
-  <a [routerLink]="['/history']">Spin Cycle</a>
+  <a [routerLink]="['/history']">
+    <img class="brand" src="logo.png" alt="Spin Cycle Logo" />
+    Spin Cycle
+  </a>
   <span class="pull-right">
     @if (!authenticated()) {
       <a [href]="authUrl">Login with Discogs</a>
@@ -7,6 +10,7 @@
       <a [routerLink]="['/settings']">Settings</a>
       <a href="#" (click)="logout($event)" role="button">Logout</a>
     }
+    <a href="https://github.com/lrdiv/spin-cycle" target="_blank">Github</a>
   </span>
 </nav>
 <main class="main">

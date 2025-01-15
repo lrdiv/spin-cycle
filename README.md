@@ -1,5 +1,6 @@
 <a id="readme-top"></a>
 <br />
+
 <div align="center">
   <a href="https://github.com/lrdiv/spin-cycle">
     <img src="assets/logo.png" alt="Logo" width="480" height="480">
@@ -48,6 +49,7 @@
 </details>
 
 <!-- ABOUT THE PROJECT -->
+
 ## About The Project
 
 Once your record collection grows past a certain size, analysis paralysis begins to creep in each time you attempt
@@ -58,13 +60,15 @@ with Spin Cycle!
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Built With
-* [![Nest.js][Nest.js]][Nest-url]
-* [![Angular][Angular.io]][Angular-url]
-* [![Nx][Nx]][Nx-url]
+
+- [![Nest.js][Nest.js]][Nest-url]
+- [![Angular][Angular.io]][Angular-url]
+- [![Nx][Nx]][Nx-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- GETTING STARTED -->
+
 ## Getting Started
 
 The easiest way to run the app locally is with Docker Compose.
@@ -73,12 +77,12 @@ The only third-party dependency at the moment is [Mailgun](https://www.mailgun.c
 
 ### Prerequisites
 
-* Install Docker Desktop / Engine
+- Install Docker Desktop / Engine
   ```sh
   brew cask install docker
   ```
-* Create a [new Discogs API Application](https://www.discogs.com/settings/developers) to obtain a key and secret
-* To ensure you have test data, you'll want an active Discogs account with some items in a collection before running the app
+- Create a [new Discogs API Application](https://www.discogs.com/settings/developers) to obtain a key and secret
+- To ensure you have test data, you'll want an active Discogs account with some items in a collection before running the app
 
 ### Running via Docker Compose (Recommended)
 
@@ -107,7 +111,7 @@ The only third-party dependency at the moment is [Mailgun](https://www.mailgun.c
    docker compose up --build
    ```
 6. The app will be accessible at `http://localhost:3000`
- 
+
 ### Running via Nx
 
 1. Follow steps 1-4 from above. The only difference is that your `.env` file should be named `.env` (not `.env.docker`)
@@ -138,8 +142,10 @@ The only third-party dependency at the moment is [Mailgun](https://www.mailgun.c
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- ROADMAP -->
+
 ## Roadmap
 
+- [ ] Migrate from Nx to Turborepo
 - [ ] Mailer Microservice
 - [ ] NestJS Queues
 - [ ] Advanced Customization
@@ -147,12 +153,14 @@ The only third-party dependency at the moment is [Mailgun](https://www.mailgun.c
   - [ ] Filter out box sets and/or singles
   - [ ] Specify time of day for email delivery
 - [ ] Write tests
+- [ ] Prettier pre-commit hook
 
 See the [open issues](https://github.com/lrdiv/spin-cycle/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTRIBUTING -->
+
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
@@ -161,7 +169,7 @@ If you have a suggestion that would make this better, please fork the repo and c
 Don't forget to give the project a star! Thanks again!
 
 1. Fork the Project
-2. Create your Feature Branch 
+2. Create your Feature Branch
    ```sh
    git checkout -b feature/amazing-feature
    ```
@@ -177,16 +185,16 @@ Don't forget to give the project a star! Thanks again!
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
 <!-- LICENSE -->
+
 ## License
 
 Distributed under the project_license. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
 <!-- CONTACT -->
+
 ## Contact
 
 General Inquiries - [spincycle@lrdiv.co](mailto:spincycle@lrdiv.co)
@@ -198,10 +206,11 @@ Project Link: [https://github.com/lrdiv/spin-cycle](https://github.com/lrdiv/spi
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- ACKNOWLEDGMENTS -->
+
 ## Acknowledgments
 
-* [Discogs](https://www.discogs.com/) - For providing an incredible (and free) service to music collectors
-* [Fly.io](https://fly.io) - For affordable app hosting
+- [Discogs](https://www.discogs.com/) - For providing an incredible (and free) service to music collectors
+- [Fly.io](https://fly.io) - For affordable app hosting
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
