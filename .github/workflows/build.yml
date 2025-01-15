@@ -1,14 +1,16 @@
-name: CI
+name: Build
 
 on:
-  pull_request:
+  push:
+    branches:
+      - main
 
 permissions:
   actions: read
   contents: read
 
 jobs:
-  pr:
+  main:
     runs-on: ubuntu-latest
     env:
       SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
@@ -24,5 +26,6 @@ jobs:
 
       - run: npm ci --legacy-peer-deps
       - uses: nrwl/nx-set-shas@v4
-
-      - run: npx nx affected -t lint test build
+        
+      - run: npx nx run-many -t lint test build
+      - run: npm run sentry:sourcemaps
