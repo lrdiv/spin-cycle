@@ -7,9 +7,7 @@ import { RedisClientType, createClient } from 'redis';
 
 import { AppModule } from './app.module';
 
-if (process.env.NODE_ENV === 'production') {
-  import('./sentry');
-}
+import('./sentry');
 
 const corsOrigin: string[] =
   process.env.NODE_ENV === 'production'
