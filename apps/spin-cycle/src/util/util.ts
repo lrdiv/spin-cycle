@@ -8,5 +8,5 @@ export const sleep = (seconds: number): Promise<void> => {
   });
 };
 
-export const AM_CRON_EXPRESSION: string = '0 9 * * *';
+export const AM_CRON_EXPRESSION: string = '0 15 * * *';
 export const TEST_CRON_EXPRESSION: string = '*/2 * * * *';
