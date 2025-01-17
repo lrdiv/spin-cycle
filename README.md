@@ -118,7 +118,7 @@ The only third-party dependency at the moment is [Mailgun](https://www.mailgun.c
 2. Install global npm depencies
    ```sh
    npm install -g nx@latest
-   npm install -g @angular/ci@19
+   npm install -g @angular/cli@19
    ```
 3. Install local dependencies
    ```sh
