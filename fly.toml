@@ -15,6 +15,9 @@ primary_region = 'ord'
   auto_start_machines = true
   processes = ['app']
 
+#[deploy]
+#  release_command = ""
+
 [[vm]]
   memory = '1gb'
   cpu_kind = 'shared'

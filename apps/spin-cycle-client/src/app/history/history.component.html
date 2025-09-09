@@ -5,35 +5,39 @@
   </div>
 }
 
-<h1 class="margin-bottom">History</h1>
+<h1 class="margin-bottom page-title">History</h1>
 @if (spinsLoaded()) {
   @if (loadedSpins()) {
-    <table>
-      <thead>
-        <tr>
-          <td>Date</td>
-          <td>Artist(s)</td>
-          <td>Album</td>
-          <td>Played</td>
-        </tr>
-      </thead>
-      <tbody>
-        @for (spin of spins(); track spin.id) {
-          <tr [class.text-gray-300]="!spin.played">
-            <td>{{ spin.createdAt | date }}</td>
-            <td>{{ spin.artistName }}</td>
-            <td>
-              <a [href]="'https://discogs.com/release/' + spin.discogsId" target="_blank">{{ spin.recordName }}</a>
-            </td>
-            <td>
-              <button (click)="updatePlayed(spin)">
-                {{ spin.played ? "I didn't play this" : 'I played this' }}
-              </button>
-            </td>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Artist(s)</th>
+            <th>Album</th>
+            <th>Played</th>
           </tr>
-        }
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          @for (spin of spins(); track spin.id) {
+            <tr [class.text-gray-300]="!spin.played">
+              <td>{{ spin.createdAt | date: 'MMM d, y' }}</td>
+              <td>{{ spin.artistName }}</td>
+              <td>
+                <a [href]="'https://discogs.com/release/' + spin.discogsId" target="_blank" rel="noreferrer noopener">{{
+                  spin.recordName
+                }}</a>
+              </td>
+              <td>
+                <button (click)="updatePlayed(spin)">
+                  {{ spin.played ? 'Mark as not played' : 'Mark as played' }}
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
 
     @if (hasMorePages()) {
       <button (click)="getNextPage()">Load More</button>

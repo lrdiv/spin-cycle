@@ -1,0 +1,162 @@
+/* Welcome page polish */
+
+.home {
+  position: relative;
+  isolation: isolate;
+}
+
+.hero-logo {
+  width: 480px;
+  height: 480px;
+  margin: 0 auto var(--space_2);
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.12));
+}
+
+.hero-title {
+  font-size: var(--font_size--xxxlarge);
+  line-height: var(--font_height--xxlarge);
+  margin-bottom: var(--space_2);
+}
+
+.hero-subtitle {
+  color: var(--color_text--subtle);
+  font-size: var(--font_size--large);
+  line-height: var(--font_height--large);
+  max-width: 50ch;
+  margin: 0 auto;
+}
+
+.cta {
+  margin-top: var(--space_4);
+}
+
+.hero-note {
+  margin-top: var(--space_2);
+  color: var(--color_text--subtle);
+  font-size: var(--font_size--small);
+}
+
+/* Features */
+.features {
+  margin-top: calc(var(--space_section) * 2);
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: var(--space_grid-gap);
+}
+
+@media (min-width: 40rem) {
+  .feature-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.feature {
+  background-color: var(--color_background--element);
+  border: 1px solid color-mix(in srgb, var(--color_text--subtle) 20%, transparent);
+  border-radius: var(--radius_md);
+  padding: var(--space_4);
+  box-shadow: var(--shadow_sm);
+  text-align: left;
+  position: relative;
+  overflow: visible;
+}
+
+.icon-wrap {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: white; /* icon color */
+  background-color: var(--color_accent); /* solid, no transparency */
+  position: absolute;
+  /* Center of the icon container sits on the card's top-left corner */
+  top: -16px;
+  left: -16px;
+  z-index: 1;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease;
+  will-change: transform;
+}
+
+.icon-wrap svg {
+  width: 32px;
+  height: 32px;
+}
+
+/* Subtle hover lift on icons (also when hovering the card) */
+.feature:hover .icon-wrap,
+.icon-wrap:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+}
+
+.feature h3 {
+  margin-bottom: var(--space_1);
+  font-size: 1.4rem;
+}
+
+.feature p {
+  color: var(--color_text--subtle);
+}
+
+/* Steps */
+.howto {
+  margin-top: calc(var(--space_section) * 1.5);
+}
+.section-title {
+  margin-bottom: var(--space_4);
+  text-align: center;
+}
+
+.steps {
+  display: grid;
+  gap: var(--space_4);
+}
+
+.step {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  gap: var(--space_2);
+  background-color: var(--color_background--surface);
+  border: 1px solid color-mix(in srgb, var(--color_text--subtle) 18%, transparent);
+  border-radius: var(--radius_md);
+  padding: var(--space_2);
+  box-shadow: var(--shadow_sm);
+}
+
+.step-badge {
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  background-color: var(--color_accent);
+  color: white;
+  border-radius: 999px;
+  font-weight: var(--font_weight--bold);
+  line-height: 12px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease;
+  will-change: transform;
+}
+
+.step .sub {
+  color: var(--color_text--subtle);
+  font-size: var(--font_size--small);
+}
+
+/* Subtle hover lift on step badge */
+.step:hover .step-badge,
+.step-badge:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.16);
+}

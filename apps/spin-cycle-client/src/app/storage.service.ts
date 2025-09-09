@@ -37,7 +37,8 @@ export class StorageService {
     try {
       JSON.parse(value);
       return true;
-    } catch (error) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (e: unknown) {
       return false;
     }
   }
