@@ -1,12 +1,12 @@
-import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { SpinEntity, UserEntity } from '@spin-cycle-mono/shared';
 import 'dotenv/config';
+import { DataSource } from 'typeorm';
 
-export const ormConfig: TypeOrmModuleOptions = {
+export default new DataSource({
   type: 'postgres',
   url: process.env.DATABASE_URL,
   database: process.env.DB_DATABASE,
   entities: [UserEntity, SpinEntity],
-  synchronize: process.env.NODE_ENV !== 'production',
+  synchronize: true,
   logging: true,
-};
+});
