@@ -1,10 +1,10 @@
 <div class="container">
-  <h1 class="margin-bottom">Settings</h1>
+  <h1 class="margin-bottom page-title">Settings</h1>
 
   <form [formGroup]="form" (ngSubmit)="save()">
     <div class="margin-bottom">
-      <label for="email-control">Email Address: (Required)</label>
-      <input id="email-control" formControlName="email" />
+      <label for="email-control">Email Address (required)</label>
+      <input id="email-control" type="email" placeholder="you@example.com" formControlName="email" />
     </div>
 
     <div class="margin-bottom">
@@ -13,7 +13,7 @@
     </div>
 
     <div class="margin-bottom">
-      <label for="discogs-folder-control">Folder (Required)</label>
+      <label for="discogs-folder-control">Folder (required)</label>
       <ng-select
         #folderSelect
         (open)="loadFolders()"

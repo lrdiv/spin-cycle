@@ -1,18 +1,92 @@
 .navbar {
-  background-color: #fff;
-  border-bottom: 1px solid var(--color_text--subtle);
-  padding: 10px 40px;
+  background: color-mix(in srgb, var(--color_background--surface) 92%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--color_text--subtle) 25%, transparent);
   position: fixed;
   top: 0;
   width: 100%;
+  z-index: 1000;
+  backdrop-filter: saturate(160%) blur(8px);
+  -webkit-backdrop-filter: saturate(160%) blur(8px);
+  box-shadow: var(--shadow_sm);
 }
 
-.navbar a {
-  padding: 0 10px;
+.navbar .inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--navbar-height);
 }
 
-.navbar img.brand {
-  float: left;
+.navbar .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space_1);
+  text-decoration: none;
+  color: inherit;
+}
+
+.navbar .brand-mark {
   height: 36px;
   width: 36px;
+}
+
+.navbar .brand-text {
+  font-weight: var(--font_weight--bold);
+  font-family: var(--font_head);
+  letter-spacing: -0.01em;
+}
+
+.navbar .links {
+  display: inline-flex;
+  gap: var(--space_2);
+  align-items: center;
+}
+
+.navbar .links a {
+  text-decoration: none;
+}
+
+/* Make auth button(s) compact in the navbar */
+.navbar .links a.button,
+.navbar .links a.button--secondary,
+.navbar .links a.button--sm {
+  padding-inline: 0.75rem; /* ~12px */
+  padding-block: 0.3rem; /* ~5px */
+  font-size: 0.875rem; /* 14px */
+  line-height: 1.2;
+  border-width: 1px;
+}
+
+/* Stronger reduction for explicit small variant */
+.navbar .links a.button--sm {
+  padding-inline: 0.5rem; /* ~8px */
+  padding-block: 0.25rem; /* ~4px */
+  font-size: 0.8125rem; /* 13px */
+}
+
+/* Icon link (Logout) */
+.navbar .links .icon-link {
+  display: inline-flex;
+  align-items: center;
+  color: inherit;
+  padding: 2px;
+  border-radius: 6px;
+}
+
+.navbar .links .icon-link:hover,
+.navbar .links .icon-link:focus {
+  color: var(--color_text--link);
+}
+
+.navbar .links .icon-link svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+@media (prefers-color-scheme: dark) {
+  .navbar {
+    background: color-mix(in srgb, var(--color_background--surface) 70%, transparent);
+    border-bottom-color: color-mix(in srgb, var(--color_text--subtle) 30%, transparent);
+  }
 }

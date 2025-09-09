@@ -1,5 +1,8 @@
 .alert {
   background-color: var(--color_background--element);
-  padding: 10px;
+  padding: var(--space_2);
   width: 100%;
+  border-left: 4px solid var(--color_accent);
+  border-radius: var(--radius_sm);
+  box-shadow: var(--shadow_sm);
 }

@@ -21,10 +21,12 @@ export class MailerService {
   }
 
   private sendMail(to: string[], subject: string, body: string): Promise<MessagesSendResult> {
-    return this.getClient().messages.create('lrdiv.co', {
+    const fromEmail = process.env.MAILGUN_EMAIL ?? 'spincycle@lrdiv.co';
+    const mailgunDomain = fromEmail.includes('@') ? fromEmail.split('@')[1] : 'lrdiv.co';
+    return this.getClient().messages.create(mailgunDomain, {
       to,
       subject,
-      from: `SpinCycle <spincycle@lrdiv.co>`,
+      from: `SpinCycle <${fromEmail}>`,
       html: body,
     });
   }

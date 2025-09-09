@@ -16,6 +16,7 @@ export class AppComponent implements OnInit {
 
   public readonly authUrl: string = this.authService.authUrl;
   public readonly authenticated: Signal<boolean> = this.authService.authenticated;
+  public readonly currentYear: number = new Date().getFullYear();
 
   ngOnInit(): void {
     this.authService.restoreToken();

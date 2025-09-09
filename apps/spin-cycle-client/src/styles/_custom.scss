@@ -10,9 +10,7 @@
   float: right;
 }
 
-.main {
-  margin-top: 80px;
-}
+/* Top spacing handled by .main .content to ensure background covers it */
 
 .text-center {
   text-align: center;
@@ -20,4 +18,15 @@
 
 .img-center {
   margin: 0 auto;
+}
+
+/* Very small site footer */
+.site-footer {
+  color: var(--color_text--subtle);
+  font-size: 0.875rem;
+  line-height: 1.4;
+  text-align: center;
+  padding-block: var(--space_2);
+  margin-top: var(--space_4);
+  border-top: 1px solid color-mix(in srgb, var(--color_text--subtle) 20%, transparent);
 }

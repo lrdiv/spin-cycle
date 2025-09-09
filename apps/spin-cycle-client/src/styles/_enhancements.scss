@@ -1,0 +1,70 @@
+/* Global component polish without changing markup */
+
+/* Buttons */
+a.button,
+a.button--secondary,
+button,
+input[type='submit'],
+input[type='reset'],
+input[type='button'] {
+  border-radius: var(--radius_sm);
+  box-shadow: var(--shadow_sm);
+  transition:
+    transform 120ms ease,
+    box-shadow 200ms ease,
+    background-color 150ms ease,
+    border-color 150ms ease;
+}
+
+a.button:hover,
+a.button--secondary:hover,
+button:hover,
+input[type='submit']:hover,
+input[type='reset']:hover,
+input[type='button']:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow_md);
+}
+
+/* Inputs */
+input,
+select,
+textarea {
+  border-radius: var(--radius_sm);
+  box-shadow: var(--shadow_sm);
+  border: 1px solid color-mix(in srgb, var(--color_text--subtle) 35%, transparent);
+  background-color: var(--color_background--surface);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid color-mix(in srgb, var(--color_accent) 65%, transparent);
+  outline-offset: 2px;
+}
+
+/* Tables wrapped with .table-wrapper */
+.table-wrapper {
+  background-color: var(--color_background--surface);
+  border: 1px solid color-mix(in srgb, var(--color_text--subtle) 25%, transparent);
+  border-radius: var(--radius_md);
+  box-shadow: var(--shadow_md);
+  overflow: hidden;
+}
+
+table thead {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--color_text--default) 100%, transparent),
+    color-mix(in srgb, var(--color_text--default) 92%, transparent)
+  );
+}
+
+tbody tr:hover {
+  background-color: color-mix(in srgb, var(--color_accent) 10%, var(--color_background--element));
+}
+
+/* Links */
+a:hover {
+  text-decoration: underline;
+}

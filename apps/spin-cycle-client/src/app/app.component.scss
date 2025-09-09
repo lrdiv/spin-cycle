@@ -1,0 +1,14 @@
+/* Page chrome and subtle hero gradient */
+
+.main .content {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--color_accent) 6%, transparent), transparent 40%);
+  min-height: 100vh;
+  /* Ensure content clears fixed navbar + add comfy top spacing while matching background */
+  padding-top: calc(var(--navbar-height) + var(--space_4));
+  position: relative;
+}
+
+/* Space below the fixed navbar for small viewports as well */
+.main {
+  padding-block-end: var(--space_8);
+}

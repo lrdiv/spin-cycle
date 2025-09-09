@@ -103,6 +103,7 @@ The only third-party dependency at the moment is [Mailgun](https://www.mailgun.c
    export DISCOGS_KEY="discogs key"
    export DISCOGS_SECRET="discogs secret"
    export MAILGUN_KEY="mailgun key"
+   export MAILGUN_EMAIL="spincycle@your.mailgun.domain"
    export JWT_SECRET="jwt secret"
    export SESSION_SECRET="session secret"
    ```

@@ -7,7 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 
 import { jwtConfig } from '../jwt.config';
-import { ormConfig } from '../orm.config';
+import ormConfig from '../orm.config';
 import { AuthModule } from './auth/auth.module';
 import { DiscogsModule } from './discogs/discogs.module';
 import { MailerModule } from './mailer/mailer.module';
@@ -24,7 +24,7 @@ import { WorkerModule } from './worker/worker.module';
       exclude: ['/api*'],
     }),
     ScheduleModule.forRoot(),
-    TypeOrmModule.forRoot(ormConfig),
+    TypeOrmModule.forRoot({ ...ormConfig.options, autoLoadEntities: true }),
     JwtModule.register(jwtConfig),
     UserModule,
     AuthModule,
