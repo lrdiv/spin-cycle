@@ -7,6 +7,8 @@ export default new DataSource({
   url: process.env.DATABASE_URL,
   database: process.env.DB_DATABASE,
   entities: [UserEntity, SpinEntity],
-  synchronize: true,
+  synchronize: false,
+  migrations: ['apps/spin-cycle/migrations/*.{ts,js}'],
+  migrationsTableName: 'migrations',
   logging: true,
 });
