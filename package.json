@@ -7,7 +7,6 @@
     "start:deps": "docker compose up -d db redis",
     "start": "npm run start:deps && nx run-many -t serve",
     "sentry:sourcemaps": "sentry-cli sourcemaps inject --org lawrence-davis --project spin-cycle-mono ./dist && sentry-cli sourcemaps upload --org lawrence-davis --project spin-cycle-mono ./dist",
-    "prepare": "husky install",
     "typeorm": "typeorm-ts-node-commonjs",
     "db:migrate:generate": "npm run typeorm -- -d apps/spin-cycle/orm.config.ts migration:generate apps/spin-cycle/migrations/Initial",
     "db:migrate:create": "npm run typeorm -- -d apps/spin-cycle/orm.config.ts migration:create apps/spin-cycle/migrations/Change",
