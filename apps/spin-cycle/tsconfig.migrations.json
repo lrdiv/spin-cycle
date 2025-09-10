@@ -1,0 +1,17 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../dist/apps/spin-cycle/migrations",
+    "module": "commonjs",
+    "target": "es2021",
+    "declaration": false,
+    "sourceMap": false,
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
+    "strict": false
+  },
+  "include": [
+    "./migrations/**/*.ts"
+  ]
+}
+
