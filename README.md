@@ -140,6 +140,25 @@ The only third-party dependency at the moment is [Mailgun](https://www.mailgun.c
    ```
 7. The frontend app will be accessible at `http://localhost:4200`
 
+### Database Migrations
+
+This project now uses TypeORM migrations (synchronize is disabled).
+
+- Generate initial migration from current entities (DB must be reachable):
+  ```sh
+  npm run db:migrate:generate
+  ```
+- Run migrations:
+  ```sh
+  npm run db:migrate:run
+  ```
+- Revert last migration:
+  ```sh
+  npm run db:migrate:revert
+  ```
+
+Note: The API is configured to run pending migrations on startup (`migrationsRun: true`). Ensure migrations are committed.
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- ROADMAP -->

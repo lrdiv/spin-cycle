@@ -24,7 +24,12 @@ import { WorkerModule } from './worker/worker.module';
       exclude: ['/api*'],
     }),
     ScheduleModule.forRoot(),
-    TypeOrmModule.forRoot({ ...ormConfig.options, autoLoadEntities: true }),
+    // Run pending migrations on startup; entities are auto-loaded for Nest repositories
+    TypeOrmModule.forRoot({
+      ...ormConfig.options,
+      autoLoadEntities: true,
+      migrationsRun: true,
+    }),
     JwtModule.register(jwtConfig),
     UserModule,
     AuthModule,
