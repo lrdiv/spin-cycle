@@ -25,10 +25,15 @@ import { WorkerModule } from './worker/worker.module';
     }),
     ScheduleModule.forRoot(),
     // Run pending migrations on startup; entities are auto-loaded for Nest repositories
+    // In production, load compiled JS migrations from the dist folder. In dev, use TS files.
     TypeOrmModule.forRoot({
       ...ormConfig.options,
       autoLoadEntities: true,
       migrationsRun: true,
+      migrations:
+        process.env.NODE_ENV === 'production'
+          ? [join(__dirname, 'migrations/*.js')]
+          : ['apps/spin-cycle/migrations/*.ts'],
     }),
     JwtModule.register(jwtConfig),
     UserModule,
