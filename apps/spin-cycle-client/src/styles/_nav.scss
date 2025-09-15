@@ -83,10 +83,3 @@
   height: 20px;
   display: block;
 }
-
-@media (prefers-color-scheme: dark) {
-  .navbar {
-    background: color-mix(in srgb, var(--color_background--surface) 70%, transparent);
-    border-bottom-color: color-mix(in srgb, var(--color_text--subtle) 30%, transparent);
-  }
-}
