@@ -5,15 +5,15 @@ ARG SENTRY_AUTH_TOKEN
 ENV SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN
 ENV NODE_ENV=production
 
-RUN npm install -g nx@latest
+RUN npm add --global nx
 
 WORKDIR /usr/src/app
 COPY package*.json ./
 
-RUN npm install
+RUN npm install --include=dev
 COPY . .
 
-RUN nx run-many -t build -p spin-cycle spin-cycle-client
+RUN nx run-many -t build -p spin-cycle spin-cycle-client --prod
 # Compile TypeORM migrations to JS for production runtime
 RUN npx tsc -p apps/spin-cycle/tsconfig.migrations.json
 RUN cp -R dist/apps/spin-cycle-client dist/apps/spin-cycle/assets/
