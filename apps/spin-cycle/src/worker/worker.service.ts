@@ -21,7 +21,7 @@ export class WorkerService {
 
   @Cron(AM_CRON_EXPRESSION)
   async sendSpins(): Promise<void> {
-    const users: UserEntity[] = await this.userService.findAllWithUnplayed();
+    const users: UserEntity[] = await this.userService.findAllWitUnplayedAndUnpaused();
     for (const user of users) {
       try {
         await this.sendSpin(user);

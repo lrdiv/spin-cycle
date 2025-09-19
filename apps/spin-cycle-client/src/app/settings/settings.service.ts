@@ -23,6 +23,7 @@ export class SettingsService {
               partial.username,
               partial.email,
               new FolderOut(partial.folderId, partial.folderName),
+              partial.pausedAt ? new Date(partial.pausedAt) : null,
             ),
         ),
       );
@@ -33,7 +34,17 @@ export class SettingsService {
     return this.http
       .patch<UserOut>(`${environment.apiUrl}/settings/${params.id}`, params)
       .pipe(
-        map((partial: UserOut) => new UserOut(partial.id, partial.discogsId, partial.username, partial.email, folder)),
+        map(
+          (partial: UserOut) =>
+            new UserOut(
+              partial.id,
+              partial.discogsId,
+              partial.username,
+              partial.email,
+              folder,
+              partial.pausedAt ? new Date(partial.pausedAt) : null,
+            ),
+        ),
       );
   }
 

@@ -10,8 +10,5 @@
     "esModuleInterop": true,
     "strict": false
   },
-  "include": [
-    "./migrations/**/*.ts"
-  ]
+  "include": ["./migrations/**/*.ts"]
 }
-

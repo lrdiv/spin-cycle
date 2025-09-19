@@ -27,7 +27,10 @@ export class UserService {
     return this.userRepository.findOne({ where: { discogsId: id } });
   }
 
-  findAllWithUnplayed(): Promise<UserEntity[]> {
-    return this.userRepository.find({ where: { allPlayed: false, email: Not(IsNull()) }, relations: [] });
+  findAllWithUnplayedAndUnpaused(): Promise<UserEntity[]> {
+    return this.userRepository.find({
+      where: { allPlayed: false, email: Not(IsNull()), pausedAt: Not(IsNull()) },
+      relations: [],
+    });
   }
 }
