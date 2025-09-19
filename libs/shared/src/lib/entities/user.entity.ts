@@ -57,6 +57,9 @@ export class UserEntity {
   @UpdateDateColumn({ nullable: true, type: 'timestamp with time zone' })
   updatedAt: Date | null = null;
 
+  @Column({ nullable: true, type: 'timestamp with time zone' })
+  pausedAt: Date | null = null;
+
   @OneToMany(() => SpinEntity, (spin) => spin.user, { cascade: false })
   spins: SpinEntity[];
 }

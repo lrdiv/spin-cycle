@@ -1,10 +1,35 @@
 <div class="container">
   <h1 class="margin-bottom page-title">Settings</h1>
+  @if (isPaused()) {
+    <div class="alert margin-bottom">
+      Recommendations are currently paused. Resume to start receiving new suggestions via email.
+    </div>
+  }
+  <div class="margin-bottom">
+    <label class="toggle">
+      <input
+        class="toggle__input"
+        type="checkbox"
+        [checked]="isPaused()"
+        (change)="togglePause()"
+        [disabled]="togglingPause()"
+        aria-label="Pause recommendations"
+      />
+      <span class="toggle__track" aria-hidden="true"></span>
+      <span class="toggle__text">Pause Spins</span>
+    </label>
+  </div>
 
   <form [formGroup]="form" (ngSubmit)="save()">
     <div class="margin-bottom">
       <label for="email-control">Email Address (required)</label>
-      <input id="email-control" type="email" placeholder="you@example.com" formControlName="email" />
+      <input
+        id="email-control"
+        type="email"
+        placeholder="you@example.com"
+        formControlName="email"
+        [disabled]="isPaused()"
+      />
     </div>
 
     <div class="margin-bottom">
@@ -19,6 +44,7 @@
         (open)="loadFolders()"
         [clearable]="false"
         [loading]="folderSelect.isOpen && !foldersLoaded()"
+        [disabled]="isPaused()"
         [items]="folders()"
         [compareWith]="compareFolders"
         labelForId="discogs-folder-control"
@@ -27,6 +53,6 @@
       />
     </div>
 
-    <button type="submit" [disabled]="saving() || !form.dirty">Save Settings</button>
+    <button type="submit" [disabled]="isPaused() || saving() || !form.dirty">Save Settings</button>
   </form>
 </div>

@@ -1,0 +1,33 @@
+/* Toast tweaks and custom icons */
+
+/* Slightly smaller text overall */
+.ngx-toastr {
+  font-size: 0.95rem;
+}
+
+/* Custom icons for pause/resume toasts */
+.ngx-toastr.is-paused,
+.ngx-toastr.is-resumed {
+  position: relative;
+  background-image: none !important; /* remove default sprite/checkmark */
+}
+
+.ngx-toastr.is-paused::before,
+.ngx-toastr.is-resumed::before {
+  content: '';
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.3rem;
+  line-height: 1;
+  color: #fff;
+}
+
+.ngx-toastr.is-paused::before {
+  content: '⏸';
+}
+
+.ngx-toastr.is-resumed::before {
+  content: '▶';
+}

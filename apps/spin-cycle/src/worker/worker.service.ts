@@ -6,7 +6,9 @@ import { DiscogsService } from '../discogs/discogs.service';
 import { MailerService } from '../mailer/mailer.service';
 import { SpinsService } from '../spins/spins.service';
 import { UserService } from '../users/user.service';
-import { AM_CRON_EXPRESSION, sleep } from '../util/util';
+import { AM_CRON_EXPRESSION, TEST_CRON_EXPRESSION, sleep } from '../util/util';
+
+const CRON = process.env.DEBUG_WORKER === '1' ? TEST_CRON_EXPRESSION : AM_CRON_EXPRESSION;
 
 @Injectable()
 export class WorkerService {
@@ -19,9 +21,9 @@ export class WorkerService {
     private readonly userService: UserService,
   ) {}
 
-  @Cron(AM_CRON_EXPRESSION)
+  @Cron(CRON)
   async sendSpins(): Promise<void> {
-    const users: UserEntity[] = await this.userService.findAllWithUnplayed();
+    const users: UserEntity[] = await this.userService.findAllWithUnplayedAndUnpaused();
     for (const user of users) {
       try {
         await this.sendSpin(user);

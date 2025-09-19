@@ -14,27 +14,13 @@ export class SettingsService {
   getUserSettings(): Observable<UserOut> {
     return this.http
       .get<UserOut>(`${environment.apiUrl}/settings`)
-      .pipe(
-        map(
-          (partial: UserOut) =>
-            new UserOut(
-              partial.id,
-              partial.discogsId,
-              partial.username,
-              partial.email,
-              new FolderOut(partial.folderId, partial.folderName),
-            ),
-        ),
-      );
+      .pipe(map((partial: UserOut) => this.castUser(partial)));
   }
 
   updateSettings(params: UserOut): Observable<UserOut> {
-    const folder = new FolderOut(params.folderId, params.folderName);
     return this.http
       .patch<UserOut>(`${environment.apiUrl}/settings/${params.id}`, params)
-      .pipe(
-        map((partial: UserOut) => new UserOut(partial.id, partial.discogsId, partial.username, partial.email, folder)),
-      );
+      .pipe(map((partial: UserOut) => this.castUser(partial)));
   }
 
   getFolders(): Observable<FolderOut[]> {
@@ -42,6 +28,24 @@ export class SettingsService {
       map((folders: FolderOut[]) => {
         return folders.map((f) => new FolderOut(f.id, f.name, f.count));
       }),
+    );
+  }
+
+  togglePause(params: UserOut): Observable<UserOut> {
+    return this.http
+      .post<UserOut>(`${environment.apiUrl}/settings/${params.id}/pause`, {})
+      .pipe(map((partial: UserOut) => this.castUser(partial)));
+  }
+
+  private castUser(partial: UserOut): UserOut {
+    const folder = new FolderOut(partial.folderId, partial.folderName);
+    return new UserOut(
+      partial.id,
+      partial.discogsId,
+      partial.username,
+      partial.email,
+      folder,
+      partial.pausedAt ? new Date(partial.pausedAt) : null,
     );
   }
 }

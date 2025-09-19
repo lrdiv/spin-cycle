@@ -20,9 +20,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.restoreToken();
-    if (this.authenticated()) {
-      this.router.navigate(['/history']);
-    }
   }
 
   logout(e: MouseEvent): Promise<boolean> {
