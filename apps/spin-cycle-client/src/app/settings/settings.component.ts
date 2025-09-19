@@ -61,13 +61,13 @@ export class SettingsComponent implements OnInit {
         this.settings.set(updated);
         this.togglingPause.set(false);
         const nowPaused: boolean = !!updated.pausedAt;
-        this.toastService.success(nowPaused ? 'Recommendations paused' : 'Recommendations resumed', undefined, {
+        this.toastService.success(nowPaused ? 'Spin Cycle paused' : 'Spin Cycle resumed!', undefined, {
           toastClass: `ngx-toastr ${nowPaused ? 'is-paused' : 'is-resumed'}`,
         });
       },
       error: () => {
         this.togglingPause.set(false);
-        this.toastService.error('Unable to toggle pause 😭');
+        this.toastService.error('Unable to pause 😭');
       },
     });
   }
