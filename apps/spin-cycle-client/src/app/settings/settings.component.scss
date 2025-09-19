@@ -1,0 +1,67 @@
+/* Toggle switch styles scoped to Settings component */
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space_2);
+  cursor: pointer;
+  user-select: none;
+}
+
+.toggle__input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle__track {
+  position: relative;
+  inline-size: 48px;
+  block-size: 28px;
+  background-color: color-mix(in srgb, var(--color_text--subtle) 30%, transparent);
+  border-radius: 9999px;
+  box-shadow: var(--shadow_sm) inset;
+  transition:
+    background-color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.toggle__track::after {
+  content: '';
+  position: absolute;
+  inset-block-start: 3px;
+  inset-inline-start: 3px;
+  inline-size: 22px;
+  block-size: 22px;
+  border-radius: 50%;
+  background-color: var(--color_background--surface);
+  box-shadow: var(--shadow_sm);
+  transition: transform 150ms ease;
+}
+
+/* Checked state */
+.toggle__input:checked + .toggle__track {
+  background-color: color-mix(in srgb, var(--color_accent) 80%, transparent);
+}
+
+.toggle__input:checked + .toggle__track::after {
+  transform: translateX(20px);
+}
+
+/* Focus visible for accessibility */
+.toggle__input:focus-visible + .toggle__track {
+  outline: 3px solid color-mix(in srgb, var(--color_accent) 65%, transparent);
+  outline-offset: 2px;
+}
+
+/* Disabled state */
+.toggle__input:disabled + .toggle__track,
+.toggle__input:disabled ~ .toggle__text {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.toggle__text {
+  color: var(--color_text--default);
+}

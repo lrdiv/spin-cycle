@@ -13,6 +13,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(withInterceptors([authInterceptor])),
     provideAnimations(), // required animations providers
-    provideToastr(),
+    provideToastr({ timeOut: 2000 }),
   ],
 };

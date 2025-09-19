@@ -29,7 +29,7 @@ export class UserService {
 
   findAllWithUnplayedAndUnpaused(): Promise<UserEntity[]> {
     return this.userRepository.find({
-      where: { allPlayed: false, email: Not(IsNull()), pausedAt: Not(IsNull()) },
+      where: { allPlayed: false, email: Not(IsNull()), pausedAt: IsNull() },
       relations: [],
     });
   }
