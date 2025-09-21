@@ -42,11 +42,11 @@ export class WorkerService {
       return this.markUserAsAllPlayed(user);
     }
 
-    const { discogsId, artistName, recordName } = nextSpin;
+    const { discogsId, artistName, recordName, dateAdded } = nextSpin;
     const releaseSpin: SpinEntity = new SpinEntity(null, user, discogsId, artistName, recordName, new Date());
     await Promise.all([
       this.spinsService.create(releaseSpin),
-      this.mailerService.sendRecommendationMail(releaseSpin, user),
+      this.mailerService.sendRecommendationMail(releaseSpin, user, dateAdded),
     ]);
   }
 

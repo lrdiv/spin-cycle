@@ -8,8 +8,8 @@ import * as process from 'node:process';
 export class MailerService {
   private readonly logger: Logger = new Logger(MailerService.name);
 
-  sendRecommendationMail(spin: SpinEntity, user: UserEntity): Promise<MessagesSendResult> {
-    return this.sendMail([user.email], this.getRecommendationSubject(), this.getRecommendationBody(spin));
+  sendRecommendationMail(spin: SpinEntity, user: UserEntity, dateAdded?: string): Promise<MessagesSendResult> {
+    return this.sendMail([user.email], this.getRecommendationSubject(), this.getRecommendationBody(spin, dateAdded));
   }
 
   sendAdminSignupMail(user: UserEntity): Promise<MessagesSendResult> {
@@ -38,14 +38,29 @@ export class MailerService {
     return `Your ${month} ${day} record-mendation from SpinCycle has arrived! 😤`;
   }
 
-  private getRecommendationBody(spin: SpinEntity): string {
+  private getRecommendationBody(spin: SpinEntity, dateAdded?: string): string {
+    const addedLine = dateAdded
+      ? `<p>This release was added to your collection on <strong>${this.formatDate(dateAdded)}</strong></p>`
+      : '';
+
     return `
       <p>Hello there!</p>
       <p>Today's randomly selected record from your collection is:</p>
       <p><strong>${spin.recordName}</strong> by <strong>${spin.artistName}</strong></p>
+      ${addedLine}
       <p><a href="https://discogs.com/release/${spin.discogsId}">View record on Discogs</a></p>
       <p>Happy spinning!</p>
     `;
+  }
+
+  private formatDate(iso: string): string {
+    const d = new Date(iso);
+    if (Number.isNaN(d.getTime())) return iso;
+    return d.toLocaleDateString(undefined, {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    });
   }
 
   private getClient(): IMailgunClient {
