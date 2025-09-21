@@ -19,4 +19,5 @@ RUN npx tsc -p apps/spin-cycle/tsconfig.migrations.json
 
 RUN cp -R dist/apps/spin-cycle-client dist/apps/spin-cycle/assets/
 
-ENTRYPOINT ["node", "dist/apps/spin-cycle/main.js"]
+# Use CMD instead of ENTRYPOINT so Fly release_command can override it
+CMD ["node", "dist/apps/spin-cycle/main.js"]
