@@ -14,8 +14,10 @@ RUN npm install --include=dev
 COPY . .
 
 RUN nx run-many -t build -p spin-cycle spin-cycle-client --prod
-# Compile TypeORM migrations to JS for production runtime
+# Compile TypeORM migrations to JS for production runtime and run migrations
 RUN npx tsc -p apps/spin-cycle/tsconfig.migrations.json
+RUN npm run db:migrate:run
+
 RUN cp -R dist/apps/spin-cycle-client dist/apps/spin-cycle/assets/
 
 ENTRYPOINT ["node", "dist/apps/spin-cycle/main.js"]
