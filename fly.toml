@@ -19,3 +19,7 @@ primary_region = 'ord'
   memory = '1gb'
   cpu_kind = 'shared'
   cpus = 1
+
+[deploy]
+  # Run DB migrations before releasing a new version
+  release_command = "node scripts/migrate.js"
